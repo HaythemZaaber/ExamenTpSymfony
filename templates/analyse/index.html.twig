@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Analyse index{% endblock %}
+
+{% block body %}
+{# <div class='d-flex justify-content-between align-items-center my-4 mx-5'> #}
+<div class=' my-4 mx-5'>
+    <h1>Analyse index</h1>
+</div>
+{# {% if app.user %} #}
+                            {# Check if the user has ROLE_MEDECIN
+                        {% if 'ROLE_MEDECIN' in app.user.roles %}
+    <a class="btn btn-primary"  href="{{ path('app_analyse_new') }}">Create new</a> #}
+    {# {% endif %} #}
+                      {# {% endif %} #}
+{# </div> #}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Date</th>
+                 <th>Patient</th>
+                <th>actions</th>
+                <th>validation</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for analyse in analyses %}
+            <tr>
+                <td>{{ analyse.id }}</td>
+                <td>{{ analyse.name }}</td>
+                <td>{{ analyse.type }}</td>
+                <td>{{ analyse.date }}</td>
+                <td>
+                
+                    {% for patient in analyse.patients %}
+                         <div class="btn font-weight-bold"> {{ patient.name }}</div>
+                    {% endfor %}
+                
+            </td>
+                <td>
+                    <a class="btn btn-success"  href="{{ path('app_analyse_show', {'id': analyse.id}) }}">show</a>
+                    <a class="btn btn-success"  href="{{ path('app_analyse_edit', {'id': analyse.id}) }}">edit</a>
+                </td>
+                <td>
+    {% if analyse.validated %} <span class="text-success">Validated</span>{% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

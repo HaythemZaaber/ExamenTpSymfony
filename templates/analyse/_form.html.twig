@@ -1,0 +1,30 @@
+{{ form_start(form, {'attr': {'class': 'your-form-class w-75 mx-auto'}}) }}
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Name'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.type) }}
+        {{ form_widget(form.type, {'attr': {'class': 'form-control', 'placeholder': 'Type'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.date) }}
+        {{ form_widget(form.date, {'attr': {'class': 'form-control', 'placeholder': 'Date'}}) }}
+    </div>
+    {% if is_granted('ROLE_MEDECIN') %}
+    <div class="form-group">
+        {{ form_label(form.patients) }}
+        {{ form_widget(form.patients, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    {% endif %}
+    {% if is_granted('ROLE_TECH') %}
+        <div class="form-check fs-4">
+            {{ form_label(form.validated) }}
+            {{ form_widget(form.validated) }}
+            {{ form_errors(form.validated) }}
+        </div>
+    {% endif %}
+    <div class="d-flex justify-content-center m-4">
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Analyse{% endblock %}
+
+{% block body %}
+    <h1>Analyse</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ analyse.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ analyse.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ analyse.type }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ analyse.date }}</td>
+            </tr>
+            <tr>
+                <th>Patient</th>
+                <td>
+                 {% for patient in analyse.patients %}
+                <div class="btn font-weight-bold">{{ patient.name }}</div>
+                    {% endfor %}
+                </td>
+            </tr>
+       
+        </tbody>
+    </table>
+    <div class="d-flex w-100 align-content-center justify-content-center">
+
+    <a class='btn btn-info m-2' href="{{ path('app_analyse_index') }}">back to list</a>
+
+    <a class='btn btn-success m-2' href="{{ path('app_analyse_edit', {'id': analyse.id}) }}">edit</a>
+
+    {% if app.user %}
+    {% if 'ROLE_MEDECIN' in app.user.roles %}
+
+             {{ include('analyse/_delete_form.html.twig') }}
+     {% endif %}
+    {% endif %}
+    </div>
+
+{% endblock %}
